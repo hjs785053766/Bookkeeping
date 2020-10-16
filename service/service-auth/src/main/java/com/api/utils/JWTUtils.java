@@ -165,7 +165,7 @@ public class JWTUtils {
             validateToken(token);
         } catch (Exception e) {
             // TODO: handle exception
-            return new Notice(HttpStatus.INTERNAL_SERVER_ERROR, "token错误");
+            return new Notice(HttpStatus.INTERNAL_SERVER_ERROR, "token被串改，请重新登录");
         }
 
         String someToken = token;

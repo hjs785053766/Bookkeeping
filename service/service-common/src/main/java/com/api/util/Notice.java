@@ -1,49 +1,36 @@
 package com.api.util;
 
+import lombok.Data;
 import org.springframework.http.HttpStatus;
 
+@Data
 public class Notice {
-	HttpStatus state;
-	String notice;
-	Object data;
+    HttpStatus state;
+	Long total;
+    Integer pageNum;
+    String notice;
+    Object data;
 
-	public Notice() {
+    public Notice() {
 
-	}
+    }
 
-	public Notice(HttpStatus state, String notice) {
-		this.state = state;
-		this.notice = notice;
-	}
+    public Notice(HttpStatus state, String notice) {
+        this.state = state;
+        this.notice = notice;
+    }
 
-	public Notice(HttpStatus state, Object data, String notice) {
-		this.state = state;
-		this.data = data;
-		this.notice = notice;
-	}
+    public Notice(HttpStatus state, Object data, String notice) {
+        this.state = state;
+        this.data = data;
+        this.notice = notice;
+    }
 
-    public HttpStatus getState() {
-		return state;
-	}
-
-	public void setState(HttpStatus state) {
-		this.state = state;
-	}
-
-	public String getNotice() {
-		return notice;
-	}
-
-	public void setNotice(String notice) {
-		this.notice = notice;
-	}
-
-	public Object getData() {
-		return data;
-	}
-
-	public void setData(Object data) {
-		this.data = data;
-	}
-
+    public Notice(HttpStatus state, Object data, String notice, Long total, Integer pageNum) {
+        this.state = state;
+        this.data = data;
+        this.notice = notice;
+        this.total = total;
+        this.pageNum = pageNum;
+    }
 }

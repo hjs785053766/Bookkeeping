@@ -19,13 +19,17 @@ public class SysRoleController {
     SysRoleServiceImpl sysRoleServiceImpl;
 
     /**
+     * 创建角色
+     *
      * @return
      */
     @PostMapping("/insRole")
     @ApiOperation(value = "创建角色", notes = "创建角色", response = SysRole.class)
     public Notice insRole(@RequestBody SysRole sysRole) {
         sysRole.setId(new Date().getTime() / 1000);
-        sysRoleServiceImpl.save(sysRole);
-        return new Notice(HttpStatus.OK, "成功");
+        if (sysRoleServiceImpl.save(sysRole)) {
+            return new Notice(HttpStatus.OK, "成功");
+        }
+        return new Notice(HttpStatus.INTERNAL_SERVER_ERROR, "失败");
     }
 }
