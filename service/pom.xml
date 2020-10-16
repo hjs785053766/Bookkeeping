@@ -18,7 +18,6 @@
         <module>service-eureka</module>
         <module>service-gateway</module>
         <module>service-auth</module>
-        <module>service-file-upload</module>
     </modules>
 
     <dependencies>

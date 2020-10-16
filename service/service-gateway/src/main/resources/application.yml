@@ -18,6 +18,12 @@ spring:
     name: service-gateway
   cloud:
     gateway:
+      globalcors: #跨域设置
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
       discovery:
         locator:
           enabled: true # 开启通过服务中心的自动根据 serviceId 创建路由的功能
