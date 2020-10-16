@@ -5,11 +5,11 @@ import com.api.service.impl.sys_role.SysRoleServiceImpl;
 import com.api.util.Notice;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 @Api(tags = "角色接口")
 @RestController
@@ -21,9 +21,11 @@ public class SysRoleController {
     /**
      * @return
      */
-    @GetMapping("/insRole")
-    @ApiOperation(value = "添加角色", notes = "添加角色", response = SysRole.class)
-    public Notice insRole() {
-        return null;
+    @PostMapping("/insRole")
+    @ApiOperation(value = "创建角色", notes = "创建角色", response = SysRole.class)
+    public Notice insRole(@RequestBody SysRole sysRole) {
+        sysRole.setId(new Date().getTime() / 1000);
+        sysRoleServiceImpl.save(sysRole);
+        return new Notice(HttpStatus.OK, "成功");
     }
 }
