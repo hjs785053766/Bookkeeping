@@ -15,7 +15,6 @@
     <modules>
         <module>service-api-util</module>
         <module>service-api-auth</module>
-        <module>service-api-file-upload</module>
     </modules>
 
     <dependencies>

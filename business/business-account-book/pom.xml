@@ -73,7 +73,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <fork>true</fork>
-                    <mainClass>com.forezp.api.BusinessAccountBookApplication</mainClass>
+                    <mainClass>com.api.BusinessAccountBookApplication</mainClass>
                     <layout>ZIP</layout>
                 </configuration>
                 <executions>

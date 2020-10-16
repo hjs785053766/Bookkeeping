@@ -8,7 +8,7 @@ spring:
   application:
     name: service-auth
   redis:
-    host: 127.0.0.1
+    host: 192.168.79.135
     port: 6379
     #    password: null     # 密码,默认密码为空
     timeout: 10000
@@ -25,10 +25,10 @@ spring:
       enabled: false
   datasource:
     #数据库连接
-    url: jdbc:mysql://192.168.79.130:3306/sys_auth?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://192.168.79.135:3306/sys_auth?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
     #用户名密码
     username: root
-    password: Ai1314520..
+    password: 123456
     #驱动包
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -39,7 +39,7 @@ jwt:
 Base64:
   key: 24f42dfc8c4ba981493ae57425f409b3
 mybatis-plus:
-  mapper-locations: classpath*:com/forezp/api/mapper/**/*.xml
+  mapper-locations: classpath*:com/api/mapper/**/*.xml
   configuration:
     # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

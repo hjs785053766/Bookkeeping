@@ -127,7 +127,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <fork>true</fork>
-                    <mainClass>com.forezp.servicegateway.ServiceGatewayApplication</mainClass>
+                    <mainClass>com.servicegateway.ServiceGatewayApplication</mainClass>
                     <layout>ZIP</layout>
                 </configuration>
                 <executions>
