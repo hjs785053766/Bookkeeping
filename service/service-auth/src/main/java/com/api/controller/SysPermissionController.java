@@ -4,21 +4,15 @@ import com.api.aop.ExtPageHelper;
 import com.api.entity.sys_permission.SysPermission;
 import com.api.service.able.SysPermissionService;
 import com.api.util.Notice;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Api(tags = "权限接口")
 @RestController
@@ -28,7 +22,7 @@ public class SysPermissionController {
     SysPermissionService sysPermissionService;
 
     @GetMapping("/selSysPermissionList")
-    @ApiOperation(value = "查询接口权限列表", notes = "添加接口权限列表", response = SysPermission.class)
+    @ApiOperation(value = "查询接口权限列表", notes = "查询接口权限列表", response = SysPermission.class)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageSize", value = "分页大小", required = true, dataType = "int"),
             @ApiImplicitParam(name = "pageNum", value = "分页开始索引", required = true, dataType = "int")

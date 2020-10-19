@@ -1,5 +1,7 @@
 package com.api.controller;
 
+import com.api.entity.sys_role.SysRole;
+import com.api.entity.user_info.UserInfo;
 import com.api.entity.user_info.UserInfoTwo;
 import com.api.service.able.UserInfoService;
 import com.api.utils.JWTUtils;
@@ -7,14 +9,12 @@ import com.api.util.Notice;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,5 +57,15 @@ public class UserInfoController {
         response.setContentType("text/html;charset=utf-8");
         System.out.println(request.getHeader("token"));
         return jwtUtils.verification(request.getHeader("token"));
+    }
+
+    @PostMapping("/insUser")
+    @ApiOperation(value = "注册用户", notes = "注册用户", response = UserInfo.class)
+    public Notice insUser(@RequestBody UserInfo userInfo) {
+        userInfo.setId(new Date().getTime() / 1000);
+        if (userInfoService.save(userInfo)) {
+            return new Notice(HttpStatus.OK, "成功");
+        }
+        return new Notice(HttpStatus.INTERNAL_SERVER_ERROR, "失败");
     }
 }
