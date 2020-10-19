@@ -85,4 +85,32 @@ public class BaseApiService {
             throw new RuntimeException(ex);
         }
     }
+
+    /**
+     * 从请求的header中拿到分页大小
+     *
+     * @return
+     */
+    protected String getPageSize() {
+        try {
+            String userId = getRequest().getHeader("pageSize");
+            return userId == null ? null : URLDecoder.decode(userId, "utf8");
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    /**
+     * 从请求的header中拿到页码
+     *
+     * @return
+     */
+    protected String getPageNum() {
+        try {
+            String userId = getRequest().getHeader("pageNum");
+            return userId == null ? null : URLDecoder.decode(userId, "utf8");
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 }

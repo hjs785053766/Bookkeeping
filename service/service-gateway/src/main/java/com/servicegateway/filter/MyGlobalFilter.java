@@ -50,7 +50,10 @@ public class MyGlobalFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         String url = exchange.getRequest().getURI().getPath();
-
+        String urlSon = exchange.getRequest().getURI().getPath();
+        ServerHttpRequest oldRequest = exchange.getRequest();
+        URI uri = oldRequest.getURI();
+        ServerHttpRequest.Builder builder = oldRequest.mutate().uri(uri);
         //判断是否是Knife4j请求
         boolean urlJudge = url.contains("/v2/api-docs");
         if (urlJudge) {
@@ -59,8 +62,16 @@ public class MyGlobalFilter implements GlobalFilter, Ordered {
         //查询白名单
         url = url.substring(url.indexOf("/") + 1, url.lastIndexOf("/"));
         url = url.substring(0, url.lastIndexOf("/"));
-        System.out.println(url);
         if (null != skipAuthUrls && Arrays.asList(skipAuthUrls).contains(url)) {
+            if (urlSon.toLowerCase().contains("list") || urlSon.toLowerCase().contains("List")) {
+                String query = exchange.getRequest().getURI().getQuery();
+                List<String> result = Arrays.asList(query.split("&"));
+                for (String a : result) {
+                    String[] split = a.split("=");//以逗号分割
+                    builder.header(split[0], split[1]);
+                }
+                ServerHttpRequest newRequest = builder.build();
+            }
             return chain.filter(exchange);
         }
         //获取token
@@ -86,16 +97,20 @@ public class MyGlobalFilter implements GlobalFilter, Ordered {
                 Map urlMap = JSON.parseObject(mapTypes.get("url").toString());
                 if (urlMap.get(url) != null) {
                     Map userMap = JSON.parseObject(mapTypes.get("user").toString());
-                    ServerHttpRequest oldRequest = exchange.getRequest();
-                    URI uri = oldRequest.getURI();
-                    ServerHttpRequest.Builder builder = oldRequest.mutate().uri(uri);
                     //重写请求头部
                     EncryptUtil des = EncryptUtil.getEncryptUtil("b068931cc450442b63f5b3d276ea4297", "utf-8");
-                    String name = des.encode(userMap.get("name").toString());
-                    builder.header("name", name);
+                    builder.header("name", des.encode(userMap.get("name").toString()));
                     builder.header("url", url);
                     builder.header("id", userMap.get("id").toString());
                     builder.header("time", new Date().getTime() / 1000 + "");
+                    if (url.toLowerCase().contains("list") || url.toLowerCase().contains("List")) {
+                        String query = exchange.getRequest().getURI().getQuery();
+                        List<String> result = Arrays.asList(query.split("&"));
+                        for (String a : result) {
+                            String[] split = a.split("=");//以逗号分割
+                            builder.header(split[0], split[1]);
+                        }
+                    }
                     //重写请求头部
                     ServerHttpRequest newRequest = builder.build();
 
