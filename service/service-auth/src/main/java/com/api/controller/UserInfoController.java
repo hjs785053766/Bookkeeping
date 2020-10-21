@@ -1,9 +1,12 @@
 package com.api.controller;
 
 import com.api.entity.sys_role.SysRole;
+import com.api.entity.sys_user_role.SysUserRole;
 import com.api.entity.user_info.UserInfo;
 import com.api.entity.user_info.UserInfoTwo;
+import com.api.manage.SysUserRoleServiceManage;
 import com.api.service.able.UserInfoService;
+import com.api.service.impl.sys_user_role.SysUserRoleServiceImpl;
 import com.api.utils.JWTUtils;
 import com.api.util.Notice;
 import io.swagger.annotations.Api;
@@ -25,6 +28,9 @@ public class UserInfoController {
 
     @Resource
     UserInfoService userInfoService;
+
+    @Resource
+    SysUserRoleServiceManage sysUserRoleServiceManage;
 
     @Resource
     private JWTUtils jwtUtils;
@@ -63,7 +69,8 @@ public class UserInfoController {
     @ApiOperation(value = "注册用户", notes = "注册用户", response = UserInfo.class)
     public Notice insUser(@RequestBody UserInfo userInfo) {
         userInfo.setId(new Date().getTime() / 1000);
-        if (userInfoService.save(userInfo)) {
+        if (userInfoService.saveOrUpdate(userInfo)) {
+            sysUserRoleServiceManage.insSysUserRole(userInfo.getId());
             return new Notice(HttpStatus.OK, "成功");
         }
         return new Notice(HttpStatus.INTERNAL_SERVER_ERROR, "失败");

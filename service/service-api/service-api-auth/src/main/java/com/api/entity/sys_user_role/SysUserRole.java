@@ -20,6 +20,15 @@ public class SysUserRole implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public SysUserRole() {
+
+    }
+
+    public SysUserRole(Long roleId, Long uid) {
+        this.roleId = roleId;
+        this.uid = uid;
+    }
+
     /**
      * 角色id
      */
@@ -39,6 +48,7 @@ public class SysUserRole implements Serializable {
     public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
+
     public Long getUid() {
         return uid;
     }
@@ -50,8 +60,8 @@ public class SysUserRole implements Serializable {
     @Override
     public String toString() {
         return "SysUserRole{" +
-        "roleId=" + roleId +
-        ", uid=" + uid +
-        "}";
+                "roleId=" + roleId +
+                ", uid=" + uid +
+                "}";
     }
 }
