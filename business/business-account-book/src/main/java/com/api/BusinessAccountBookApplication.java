@@ -9,7 +9,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @SpringBootApplication
 @EnableEurekaClient
 @EnableDiscoveryClient
-@MapperScan("com.forezp.api.mapper")
+@MapperScan("com.api.mapper")
 public class BusinessAccountBookApplication {
 
     public static void main(String[] args) {

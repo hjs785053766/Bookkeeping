@@ -69,6 +69,7 @@ public class UserInfoController {
     @ApiOperation(value = "注册用户", notes = "注册用户", response = UserInfo.class)
     public Notice insUser(@RequestBody UserInfo userInfo) {
         userInfo.setId(new Date().getTime() / 1000);
+        userInfo.setCreationTime(new Date());
         if (userInfoService.saveOrUpdate(userInfo)) {
             sysUserRoleServiceManage.insSysUserRole(userInfo.getId());
             return new Notice(HttpStatus.OK, "成功");

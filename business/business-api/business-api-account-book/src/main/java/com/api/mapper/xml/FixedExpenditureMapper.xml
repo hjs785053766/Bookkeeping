@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.api.mapper.FixedExpenditureMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.api.entity.fixed_expenditure.FixedExpenditure">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="cost" property="cost" />
+        <result column="billing_time" property="billingTime" />
+        <result column="company" property="company" />
+        <result column="total" property="total" />
+        <result column="practical" property="practical" />
+        <result column="user_id" property="userId" />
+        <result column="creation_time" property="creationTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, cost, billing_time, company, total, practical, user_id, creation_time
+    </sql>
+
+</mapper>

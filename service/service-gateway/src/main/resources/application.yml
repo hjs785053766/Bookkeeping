@@ -29,24 +29,24 @@ spring:
           enabled: true # 开启通过服务中心的自动根据 serviceId 创建路由的功能
       #          lowerCaseServiceId: true
       routes:
-#        - id: business-account-book
-#          uri: lb://BUSINESS-ACCOUNT-BOOK
-#          order: 0
-#          predicates:
-#            - Path=/accountbook/**
-#          filters:
+        - id: business-account-book
+          uri: lb://BUSINESS-ACCOUNT-BOOK
+          order: 0
+          predicates:
+            - Path=/accountbook/**
+          filters:
 #以下是ip限流配置
 #                        - name: RequestRateLimiter
 #                          args:
 #                            key-resolver: '#{@ipKeyResolver}'
 #                            redis-rate-limiter.replenishRate: 200
 #                            redis-rate-limiter.burstCapacity: 400
-#              - name: Hystrix
-#                args:
-#                  name: fallback
-#                  fallbackUri: forward:/fallback
-#              - StripPrefix=1
-#              - AddResponseHeader=X-Response-Default-Foo, Default-Bar
+            - name: Hystrix
+              args:
+                name: fallback
+                fallbackUri: forward:/fallback
+            - StripPrefix=1
+            - AddResponseHeader=X-Response-Default-Foo, Default-Bar
         - id: service-auth
           uri: lb://SERVICE-AUTH
           order: 0

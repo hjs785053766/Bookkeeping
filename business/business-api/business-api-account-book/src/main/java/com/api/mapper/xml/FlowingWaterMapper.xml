@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.api.mapper.FlowingWaterMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.api.entity.flowing_water.FlowingWater">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="operation_type" property="operationType" />
+        <result column="deduction_account_id" property="deductionAccountId" />
+        <result column="deduction_account_name" property="deductionAccountName" />
+        <result column="collection_account_id" property="collectionAccountId" />
+        <result column="collection_account_name" property="collectionAccountName" />
+        <result column="amount" property="amount" />
+        <result column="creation_time" property="creationTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, operation_type, deduction_account_id, deduction_account_name, collection_account_id, collection_account_name, amount, creation_time
+    </sql>
+
+</mapper>

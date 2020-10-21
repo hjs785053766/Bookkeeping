@@ -60,6 +60,7 @@ public class CodeGenerator {
         gc.setFileOverride(true);                //是否覆蓋已有文件 默认值：false
         gc.setOpen(false);                        //是否打开输出目录 默认值:true
         gc.setDateType(DateType.ONLY_DATE);     //设置生成时间类型
+        gc.setSwagger2(true);                   //开启swagger
 
         gc.setBaseColumnList(true);                //开启 baseColumnList 默认false
         gc.setBaseResultMap(true);                //开启 BaseResultMap 默认false
@@ -72,10 +73,10 @@ public class CodeGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://192.168.79.135:3306/account_book?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true");
+        dsc.setUrl("jdbc:mysql://192.168.79.135:3306/business?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("Ai1314520..");
+        dsc.setPassword("123456");
         mpg.setDataSource(dsc);
 
         String tableName = scanner("表名");
@@ -104,6 +105,7 @@ public class CodeGenerator {
         strategy.setInclude(tableName);        //需要包含的表名，允许正则表达式（与exclude二选一配置）
         strategy.setControllerMappingHyphenStyle(true);    //驼峰转连字符
         strategy.setTablePrefix(pc.getModuleName() + "_");    //是否生成实体时，生成字段注解
+        strategy.setEntityLombokModel(true);//开启Data
         mpg.setStrategy(strategy);
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());
         mpg.execute();

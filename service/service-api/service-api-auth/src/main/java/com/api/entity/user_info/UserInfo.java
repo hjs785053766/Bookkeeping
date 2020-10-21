@@ -5,8 +5,10 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -18,6 +20,7 @@ import java.io.Serializable;
  */
 @TableName("user_info")
 @ApiModel(value = "用户表")
+@Data
 public class UserInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,34 +45,8 @@ public class UserInfo implements Serializable {
     @ApiModelProperty(value = "帐号", position = 1)
     private String username;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    @ApiModelProperty(value = "创建时间")
+    private Date creationTime;
 
     @Override
     public String toString() {
