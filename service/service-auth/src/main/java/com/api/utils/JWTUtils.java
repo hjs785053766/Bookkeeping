@@ -168,9 +168,8 @@ public class JWTUtils {
             return new Notice(HttpStatus.INTERNAL_SERVER_ERROR, "token被串改，请重新登录");
         }
 
-        String someToken = token;
         // 测试2: 如果能token合法且未过期，返回true
-        Boolean validateToken = validateToken(someToken);
+        Boolean validateToken = validateToken(token);
         if (!validateToken) {
             return new Notice(HttpStatus.INTERNAL_SERVER_ERROR, "token过期");
         }

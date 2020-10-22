@@ -33,7 +33,7 @@ spring:
           uri: lb://BUSINESS-ACCOUNT-BOOK
           order: 0
           predicates:
-            - Path=/accountbook/**
+            - Path=/business/**
           filters:
 #以下是ip限流配置
 #                        - name: RequestRateLimiter
@@ -72,3 +72,5 @@ eureka:
       defaultZone: http://127.0.0.1:8761/eureka/
 jwt:
   secret: 35713a66d8a9123a119633448cd859a4
+  # 有效期，单位秒，默认2周
+  expirationTimeInSecond: 89280
