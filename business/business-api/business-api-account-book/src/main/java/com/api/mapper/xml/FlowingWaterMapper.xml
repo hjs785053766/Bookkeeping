@@ -13,11 +13,12 @@
         <result column="collection_account_name" property="collectionAccountName" />
         <result column="amount" property="amount" />
         <result column="creation_time" property="creationTime" />
+        <result column="user_id" property="userId" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, operation_type, deduction_account_id, deduction_account_name, collection_account_id, collection_account_name, amount, creation_time
+        id, name, operation_type, deduction_account_id, deduction_account_name, collection_account_id, collection_account_name, amount, creation_time, user_id
     </sql>
 
 </mapper>

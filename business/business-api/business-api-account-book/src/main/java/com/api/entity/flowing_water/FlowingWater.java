@@ -4,11 +4,14 @@ import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.util.Date;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * <p>
@@ -16,7 +19,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author hjs
- * @since 2020-10-21
+ * @since 2020-10-26
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -50,8 +53,13 @@ public class FlowingWater implements Serializable {
     @ApiModelProperty(value = "金额")
     private BigDecimal amount;
 
-    @ApiModelProperty(value = "创建时间")
+    @ApiModelProperty(value = "记录时间")
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss", timezone = "GMT+8")
     private Date creationTime;
+
+    @ApiModelProperty(value = "操作人id")
+    private String userId;
 
 
 }

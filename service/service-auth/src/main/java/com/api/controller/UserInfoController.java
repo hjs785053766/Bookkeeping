@@ -12,6 +12,7 @@ import com.api.util.Notice;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -67,6 +68,7 @@ public class UserInfoController {
 
     @PostMapping("/insUser")
     @ApiOperation(value = "注册用户", notes = "注册用户", response = UserInfo.class)
+    @Transactional
     public Notice insUser(@RequestBody UserInfo userInfo) {
         userInfo.setId(new Date().getTime() / 1000);
         userInfo.setCreationTime(new Date());

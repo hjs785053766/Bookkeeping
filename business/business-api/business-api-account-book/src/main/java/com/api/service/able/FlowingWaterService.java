@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author hjs
- * @since 2020-10-21
+ * @since 2020-10-26
  */
 public interface FlowingWaterService extends IService<FlowingWater> {
 

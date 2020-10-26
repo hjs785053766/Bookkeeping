@@ -231,17 +231,14 @@ public class MyGlobalFilter implements GlobalFilter, Ordered {
     public Notice verification(String token) throws Exception {
         // 验证token是否被修改
         try {
-            validateToken(token);
+            // 测试2: 如果能token合法且未过期，返回true
+            Boolean validateToken = validateToken(token);
+            if (!validateToken) {
+                return new Notice(HttpStatus.INTERNAL_SERVER_ERROR, "5");
+            }
         } catch (Exception e) {
             // TODO: handle exception
             return new Notice(HttpStatus.INTERNAL_SERVER_ERROR, "5");
-        }
-
-        String someToken = token;
-        // 测试2: 如果能token合法且未过期，返回true
-        Boolean validateToken = validateToken(someToken);
-        if (!validateToken) {
-            return new Notice(HttpStatus.INTERNAL_SERVER_ERROR, "6");
         }
         return new Notice(HttpStatus.OK, "成功");
     }

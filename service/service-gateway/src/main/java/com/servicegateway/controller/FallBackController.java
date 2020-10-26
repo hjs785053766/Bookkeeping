@@ -38,10 +38,7 @@ public class FallBackController {
                 notice = "没有token,请重新登录";
                 break;
             case 5:
-                notice = "token被串改，请重新登录";
-                break;
-            case 6:
-                notice = "token过期，请重新登录";
+                notice = "token过期或被串改，请重新登录";
                 break;
         }
         return new Notice(HttpStatus.UNAUTHORIZED, notice);
