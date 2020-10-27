@@ -5,6 +5,7 @@ import com.api.aop.ExtPageHelper;
 import com.api.entity.flowing_water.FlowingWater;
 import com.api.service.impl.account.AccountServiceImpl;
 import com.api.service.impl.flowing_water.FlowingWaterServiceImpl;
+import com.api.service.impl.flowing_water_name.FlowingWaterNameServiceImpl;
 import com.api.util.BaseApiService;
 import com.api.util.Notice;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -17,7 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 @Api(tags = "流水接口")
 @RestController
@@ -25,6 +29,8 @@ import java.util.Date;
 public class FlowingWaterController extends BaseApiService {
     @Resource
     FlowingWaterServiceImpl flowingWaterServiceImpl;
+    @Resource
+    FlowingWaterNameServiceImpl flowingWaterNameServiceImpl;
     @Resource
     AccountServiceImpl accountServiceImpl;
 
@@ -51,11 +57,12 @@ public class FlowingWaterController extends BaseApiService {
         flowingWater.setId(IdUtil.simpleUUID());
         flowingWater.setUserId(getUserId());
         if (flowingWaterServiceImpl.save(flowingWater)) {
-            if (flowingWater.getOperationType() != 3) {
+            if (flowingWater.getOperationType() != 3) {//钱包扣款
                 accountServiceImpl.IncomeAndExpenditure(flowingWater.getDeductionAccountId(), flowingWater.getOperationType(), 1, flowingWater.getAmount());
             } else {
                 accountServiceImpl.transferAccounts(flowingWater.getDeductionAccountId(), flowingWater.getCollectionAccountId(), 1, flowingWater.getAmount());
             }
+            flowingWaterNameServiceImpl.selName(flowingWater.getName(), getUserId());
             return new Notice(HttpStatus.OK, "成功");
         }
         return new Notice(HttpStatus.INTERNAL_SERVER_ERROR, "失败");
@@ -74,6 +81,7 @@ public class FlowingWaterController extends BaseApiService {
             accountServiceImpl.transferAccounts(flowingWater.getDeductionAccountId(), flowingWater.getCollectionAccountId(), 1, flowingWater.getAmount());
         }
         if (flowingWaterServiceImpl.updateById(flowingWater)) {
+            flowingWaterNameServiceImpl.selName(flowingWater.getName(), getUserId());
             return new Notice(HttpStatus.OK, "成功");
         }
         return new Notice(HttpStatus.INTERNAL_SERVER_ERROR, "失败");

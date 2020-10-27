@@ -38,9 +38,10 @@ public class PageHelperAspect extends BaseApiService {
         Object object = proceedingJoinPoint.proceed();
         if (object instanceof Notice) {
             Notice notice = (Notice) object;
-            if (notice.getState().value() == 200) {
+            if (notice.getState() == 200) {
                 notice.setTotal(page.getTotal());
                 notice.setPageNum(page.getPageNum());
+                notice.setPages(page.getPages());
                 return notice;
             }
         }

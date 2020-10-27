@@ -80,7 +80,7 @@ public class MyGlobalFilter implements GlobalFilter, Ordered {
         } else {
             try {
                 Notice notice = verification(token);
-                if (notice.getState() == HttpStatus.INTERNAL_SERVER_ERROR) {
+                if (notice.getState() == 500) {
                     if (notice.getNotice().equals("5")) {
                         return returnAuthFail(exchange, 5);
                     } else if (notice.getNotice().equals("6")) {
@@ -113,7 +113,9 @@ public class MyGlobalFilter implements GlobalFilter, Ordered {
                 List<String> result = Arrays.asList(query.split("&"));
                 for (String a : result) {
                     String[] split = a.split("=");//以逗号分割
-                    builder.header(split[0], split[1]);
+                    if (split[0].equals("pageNum") || split[0].equals("pageSize")) {
+                        builder.header(split[0], split[1]);
+                    }
                 }
                 ServerHttpRequest newRequest = builder.build();
                 return chain.filter(exchange.mutate().request(newRequest).build());
@@ -136,7 +138,9 @@ public class MyGlobalFilter implements GlobalFilter, Ordered {
                     List<String> result = Arrays.asList(query.split("&"));
                     for (String a : result) {
                         String[] split = a.split("=");//以逗号分割
-                        builder.header(split[0], split[1]);
+                        if (split[0].equals("pageNum") || split[0].equals("pageSize")) {
+                            builder.header(split[0], split[1]);
+                        }
                     }
                 }
                 //重写请求头部

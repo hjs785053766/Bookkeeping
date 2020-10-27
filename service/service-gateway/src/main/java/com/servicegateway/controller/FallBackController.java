@@ -21,9 +21,11 @@ public class FallBackController {
     @GetMapping("/error")
     public Notice error(@RequestParam("state") int state) {
         String notice = null;
+        HttpStatus http = HttpStatus.UNAUTHORIZED;
         switch (state) {
             case 0:
                 notice = "服务器异常";
+                http = HttpStatus.INTERNAL_SERVER_ERROR;
                 break;
             case 1:
                 notice = "无权限，请更换帐号";
@@ -41,6 +43,6 @@ public class FallBackController {
                 notice = "token过期或被串改，请重新登录";
                 break;
         }
-        return new Notice(HttpStatus.UNAUTHORIZED, notice);
+        return new Notice(http, notice);
     }
 }

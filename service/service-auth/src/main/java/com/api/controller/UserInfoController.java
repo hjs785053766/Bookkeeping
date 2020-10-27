@@ -49,7 +49,10 @@ public class UserInfoController {
         map.put("username", username);
         map.put("password", password);
         UserInfoTwo userInfoTwo = userInfoService.SignIn(map);
-        return new Notice(HttpStatus.OK, jwtUtils.generateToken(userInfoTwo), "成功");
+        if (userInfoTwo != null) {
+            return new Notice(HttpStatus.OK, jwtUtils.generateToken(userInfoTwo), "成功");
+        }
+        return new Notice(HttpStatus.INTERNAL_SERVER_ERROR, "用户名或密码错误，请重新输入");
     }
 
     /**
