@@ -1,6 +1,5 @@
 package com.servicegateway.controller;
 
-import com.servicegateway.utils.EncryptUtil;
 import com.servicegateway.utils.Notice;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;

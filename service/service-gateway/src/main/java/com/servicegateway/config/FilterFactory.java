@@ -1,7 +1,6 @@
 package com.servicegateway.config;
 
 import com.servicegateway.filter.MyGlobalFilter;
-import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;

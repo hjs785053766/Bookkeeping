@@ -1,7 +1,6 @@
 package com.api.controller;
 
 import com.api.aop.ExtPageHelper;
-import com.api.entity.sys_permission.SysPermission;
 import com.api.entity.sys_role.SysRole;
 import com.api.entity.sys_role_permission.SysRolePermission;
 import com.api.service.impl.sys_role.SysRoleServiceImpl;

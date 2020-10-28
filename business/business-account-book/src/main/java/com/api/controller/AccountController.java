@@ -3,7 +3,6 @@ package com.api.controller;
 import cn.hutool.core.util.IdUtil;
 import com.api.aop.ExtPageHelper;
 import com.api.entity.account.Account;
-import com.api.entity.account.AccountSon;
 import com.api.entity.flowing_water.FlowingWater;
 import com.api.service.impl.account.AccountServiceImpl;
 import com.api.service.impl.flowing_water.FlowingWaterServiceImpl;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Api(tags = "账户接口")
