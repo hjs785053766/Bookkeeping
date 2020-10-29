@@ -59,6 +59,7 @@ public class MyGlobalFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         String url = exchange.getRequest().getURI().getPath();
+        String Son = exchange.getRequest().getURI().getHost();
         String urlSon = exchange.getRequest().getURI().getPath();
         ServerHttpRequest oldRequest = exchange.getRequest();
         URI uri = oldRequest.getURI();
@@ -77,17 +78,17 @@ public class MyGlobalFilter implements GlobalFilter, Ordered {
         }
         if (StringUtils.isBlank(token)) {
             //没有token
-            return returnAuthFail(exchange, 4);
+            return returnAuthFail(exchange, 4, Son);
         } else {
             try {
                 Notice notice = verification(token);
                 if (notice.getState() == 500) {
                     if (notice.getNotice().equals("5")) {
-                        return returnAuthFail(exchange, 5);
+                        return returnAuthFail(exchange, 5, Son);
                     } else if (notice.getNotice().equals("6")) {
-                        return returnAuthFail(exchange, 6);
+                        return returnAuthFail(exchange, 6, Son);
                     }
-                    return returnAuthFail(exchange, 0);
+                    return returnAuthFail(exchange, 0, Son);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -95,13 +96,13 @@ public class MyGlobalFilter implements GlobalFilter, Ordered {
             Claims claims = getClaimsFromToken(token);
             String redisKey = "";
             if (claims == null) {
-                return returnAuthFail(exchange, 3);
+                return returnAuthFail(exchange, 3, Son);
             }
             redisKey = claims.get("key").toString();
             redisUtil.setDataBase(0);
             Object user = redisUtil.get(redisKey);
             if (user == null) {
-                return returnAuthFail(exchange, 2);
+                return returnAuthFail(exchange, 2, Son);
             }
             userJson = user.toString();
         }
@@ -149,11 +150,11 @@ public class MyGlobalFilter implements GlobalFilter, Ordered {
 
                 return chain.filter(exchange.mutate().request(newRequest).build());
             } else {
-                return returnAuthFail(exchange, 1);
+                return returnAuthFail(exchange, 1, Son);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return returnAuthFail(exchange, 0);
+            return returnAuthFail(exchange, 0, Son);
         }
     }
 
@@ -163,8 +164,8 @@ public class MyGlobalFilter implements GlobalFilter, Ordered {
      * @param exchange
      * @return
      */
-    private Mono<Void> returnAuthFail(ServerWebExchange exchange, int state) {
-        String url = url = "http://127.0.0.1:8762/error?state=" + state;
+    private Mono<Void> returnAuthFail(ServerWebExchange exchange, int state, String urlSon) {
+        String url = "http://" + urlSon + ":8762/error?state=" + state;
         ServerHttpResponse response = exchange.getResponse();
         //303状态码表示由于请求对应的资源存在着另一个URI，应使用GET方法定向获取请求的资源
         response.setStatusCode(HttpStatus.SEE_OTHER);

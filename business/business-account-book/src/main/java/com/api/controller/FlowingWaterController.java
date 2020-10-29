@@ -43,6 +43,7 @@ public class FlowingWaterController extends BaseApiService {
         if (name != null && !name.equals("null")) {
             queryWrapper.like("name", name);
         }
+        queryWrapper.orderByAsc("creation_time desc");
         return new Notice(HttpStatus.OK, flowingWaterServiceImpl.list(queryWrapper), "成功");
     }
 

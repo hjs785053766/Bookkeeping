@@ -30,7 +30,7 @@
                 </includes>
             </resource>
             <resource>
-                <directory>src/main/java/com/forezp/api/mapper</directory>
+                <directory>src/main/java/com/api/mapper</directory>
             </resource>
         </resources>
     </build>
