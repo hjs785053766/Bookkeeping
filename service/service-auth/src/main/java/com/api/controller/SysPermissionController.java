@@ -42,7 +42,7 @@ public class SysPermissionController {
         return new Notice(HttpStatus.INTERNAL_SERVER_ERROR, "失败");
     }
 
-    @PutMapping("/updSysPermission")
+    @PostMapping("/updSysPermission")
     @ApiOperation(value = "修改接口权限", notes = "修改接口权限", response = SysPermission.class)
     public Notice updSysPermission(@RequestBody SysPermission sysPermission) {
         if (sysPermissionService.updateById(sysPermission)) {

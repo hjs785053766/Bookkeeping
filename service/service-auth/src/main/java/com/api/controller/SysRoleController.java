@@ -54,7 +54,7 @@ public class SysRoleController {
         return new Notice(HttpStatus.OK, sysRoleServiceImpl.list(), "成功");
     }
 
-    @PutMapping("/updRole")
+    @PostMapping("/updRole")
     @ApiOperation(value = "修改角色", notes = "修改角色", response = SysRole.class)
     public Notice updRole(@RequestBody SysRole sysRole) {
         if (sysRoleServiceImpl.updateById(sysRole)) {

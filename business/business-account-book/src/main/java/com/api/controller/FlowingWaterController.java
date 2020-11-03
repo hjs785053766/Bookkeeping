@@ -13,10 +13,12 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.aspectj.weaver.ast.Not;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 
 @Api(tags = "流水接口")
 @RestController
@@ -43,7 +45,7 @@ public class FlowingWaterController extends BaseApiService {
         if (name != null && !name.equals("null")) {
             queryWrapper.like("name", name);
         }
-        queryWrapper.orderByAsc("creation_time desc");
+        queryWrapper.orderByDesc("creation_time");
         return new Notice(HttpStatus.OK, flowingWaterServiceImpl.list(queryWrapper), "成功");
     }
 
@@ -52,10 +54,13 @@ public class FlowingWaterController extends BaseApiService {
     public Notice insAccount(@RequestBody FlowingWater flowingWater) {
         flowingWater.setId(IdUtil.simpleUUID());
         flowingWater.setUserId(getUserId());
+        flowingWater.setAmount(flowingWater.getAmount().multiply(new BigDecimal(100)));
         if (flowingWaterServiceImpl.save(flowingWater)) {
-            if (flowingWater.getOperationType() != 3) {//钱包扣款
+            if (flowingWater.getOperationType() == 1) {//钱包扣款
                 accountServiceImpl.IncomeAndExpenditure(flowingWater.getDeductionAccountId(), flowingWater.getOperationType(), 1, flowingWater.getAmount());
-            } else {
+            } else if (flowingWater.getOperationType() == 2) {//钱包收款
+                accountServiceImpl.IncomeAndExpenditure(flowingWater.getCollectionAccountId(), flowingWater.getOperationType(), 1, flowingWater.getAmount());
+            } else {//钱包转账
                 accountServiceImpl.transferAccounts(flowingWater.getDeductionAccountId(), flowingWater.getCollectionAccountId(), 1, flowingWater.getAmount());
             }
             flowingWaterNameServiceImpl.selName(flowingWater.getName(), getUserId());
@@ -65,9 +70,10 @@ public class FlowingWaterController extends BaseApiService {
     }
 
 
-    @PutMapping("/updFlowingWater")
+    @PostMapping("/updFlowingWater")
     @ApiOperation(value = "修改流水", notes = "修改流水", response = FlowingWater.class)
     public Notice updAccount(@RequestBody FlowingWater flowingWater) {
+        flowingWater.setAmount(flowingWater.getAmount().multiply(new BigDecimal(100)));
         FlowingWater flowingWaterSon = flowingWaterServiceImpl.getById(flowingWater.getId());
         if (flowingWaterSon.getOperationType() != 3) {
             accountServiceImpl.IncomeAndExpenditure(flowingWaterSon.getDeductionAccountId(), flowingWaterSon.getOperationType(), 2, flowingWaterSon.getAmount());
@@ -94,5 +100,13 @@ public class FlowingWaterController extends BaseApiService {
             return new Notice(HttpStatus.OK, "成功");
         }
         return new Notice(HttpStatus.INTERNAL_SERVER_ERROR, "失败");
+    }
+
+    @GetMapping("/getFlowingWater")
+    @ApiOperation(value = "获取流水", notes = "获取流水")
+    public Notice getFlowingWater(@RequestParam("id") String id) {
+        FlowingWater flowingWater = flowingWaterServiceImpl.getById(id);
+        flowingWater.setAmount(flowingWater.getAmount().divide(new BigDecimal(100)));
+        return new Notice(HttpStatus.OK, flowingWater, "成功");
     }
 }

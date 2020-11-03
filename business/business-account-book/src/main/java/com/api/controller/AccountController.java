@@ -59,7 +59,7 @@ public class AccountController extends BaseApiService {
         return new Notice(HttpStatus.OK, accountServiceImpl.list(queryWrapper), "成功");
     }
 
-    @PutMapping("/updAccount")
+    @PostMapping("/updAccount")
     @ApiOperation(value = "修改账户", notes = "修改账户", response = Account.class)
     public Notice updAccount(@RequestBody Account account) {
         if (accountServiceImpl.updateById(account)) {

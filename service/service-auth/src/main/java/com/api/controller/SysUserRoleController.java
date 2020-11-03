@@ -44,7 +44,7 @@ public class SysUserRoleController {
         return new Notice(HttpStatus.OK, sysUserRoleServiceImpl.list(queryWrapper), "成功");
     }
 
-    @DeleteMapping("/delSysUserRole")
+    @GetMapping("/delSysUserRole")
     @ApiOperation(value = "删除用户角色", notes = "删除用户角色")
     public Notice delSysUserRole(@RequestParam("id") String id) {
         if (sysUserRoleServiceImpl.removeById(id)) {

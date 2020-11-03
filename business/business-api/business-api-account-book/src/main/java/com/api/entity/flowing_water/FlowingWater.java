@@ -44,10 +44,10 @@ public class FlowingWater implements Serializable {
     @ApiModelProperty(value = "扣款账户名")
     private String deductionAccountName;
 
-    @ApiModelProperty(value = "收款账户id（转账类型不为空）")
+    @ApiModelProperty(value = "收款账户id（转账收入类型不为空）")
     private String collectionAccountId;
 
-    @ApiModelProperty(value = "收款账户id（转账类型不为空）")
+    @ApiModelProperty(value = "收款账户id（转账收入类型不为空）")
     private String collectionAccountName;
 
     @ApiModelProperty(value = "金额")

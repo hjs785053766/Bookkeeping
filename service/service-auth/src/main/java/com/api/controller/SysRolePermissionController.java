@@ -44,7 +44,7 @@ public class SysRolePermissionController {
         return new Notice(HttpStatus.OK, sysRolePermissionServiceImpl.list(queryWrapper), "成功");
     }
 
-    @DeleteMapping("/delSysRolePermission")
+    @GetMapping("/delSysRolePermission")
     @ApiOperation(value = "删除角色权限", notes = "删除角色权限")
     public Notice delSysRolePermission(@RequestParam("id") String id) {
         if (sysRolePermissionServiceImpl.removeById(id)) {
