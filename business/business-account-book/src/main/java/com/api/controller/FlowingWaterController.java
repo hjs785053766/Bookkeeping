@@ -76,8 +76,14 @@ public class FlowingWaterController extends BaseApiService {
         flowingWater.setAmount(flowingWater.getAmount().multiply(new BigDecimal(100)));
         FlowingWater flowingWaterSon = flowingWaterServiceImpl.getById(flowingWater.getId());
         if (flowingWaterSon.getOperationType() != 3) {
-            accountServiceImpl.IncomeAndExpenditure(flowingWaterSon.getDeductionAccountId(), flowingWaterSon.getOperationType(), 2, flowingWaterSon.getAmount());
-            accountServiceImpl.IncomeAndExpenditure(flowingWater.getDeductionAccountId(), flowingWater.getOperationType(), 1, flowingWater.getAmount());
+            if (flowingWaterSon.getOperationType() == 1) {
+                accountServiceImpl.IncomeAndExpenditure(flowingWaterSon.getDeductionAccountId(), flowingWaterSon.getOperationType(), 2, flowingWaterSon.getAmount());
+                accountServiceImpl.IncomeAndExpenditure(flowingWater.getDeductionAccountId(), flowingWater.getOperationType(), 1, flowingWater.getAmount());
+            }else{
+                accountServiceImpl.IncomeAndExpenditure(flowingWaterSon.getCollectionAccountId(), flowingWaterSon.getOperationType(), 2, flowingWaterSon.getAmount());
+                accountServiceImpl.IncomeAndExpenditure(flowingWater.getCollectionAccountId(), flowingWater.getOperationType(), 1, flowingWater.getAmount());
+            }
+
         } else {
             accountServiceImpl.transferAccounts(flowingWater.getDeductionAccountId(), flowingWater.getCollectionAccountId(), 2, flowingWater.getAmount());
             accountServiceImpl.transferAccounts(flowingWater.getDeductionAccountId(), flowingWater.getCollectionAccountId(), 1, flowingWater.getAmount());
