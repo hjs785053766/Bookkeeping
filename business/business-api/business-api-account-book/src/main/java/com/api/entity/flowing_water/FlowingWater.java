@@ -54,8 +54,8 @@ public class FlowingWater implements Serializable {
     private BigDecimal amount;
 
     @ApiModelProperty(value = "记录时间")
-    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date creationTime;
 
     @ApiModelProperty(value = "操作人id")
