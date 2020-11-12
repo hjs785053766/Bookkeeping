@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,6 +37,9 @@ public class AccountController extends BaseApiService {
         account.setId(IdUtil.simpleUUID());
         account.setUserId(getUserId());
         account.setCreationTime(new Date());
+        account.setAccountIncome(account.getAccountIncome().multiply(new BigDecimal(100)));
+        account.setAccountConsumption(account.getAccountConsumption().multiply(new BigDecimal(100)));
+        account.setAccountBalance(account.getAccountBalance().multiply(new BigDecimal(100)));
         if (accountServiceImpl.save(account)) {
             return new Notice(HttpStatus.OK, "成功");
         }
@@ -62,13 +66,16 @@ public class AccountController extends BaseApiService {
     @PostMapping("/updAccount")
     @ApiOperation(value = "修改账户", notes = "修改账户", response = Account.class)
     public Notice updAccount(@RequestBody Account account) {
+        account.setAccountIncome(account.getAccountIncome().multiply(new BigDecimal(100)));
+        account.setAccountConsumption(account.getAccountConsumption().multiply(new BigDecimal(100)));
+        account.setAccountBalance(account.getAccountBalance().multiply(new BigDecimal(100)));
         if (accountServiceImpl.updateById(account)) {
             return new Notice(HttpStatus.OK, "成功");
         }
         return new Notice(HttpStatus.INTERNAL_SERVER_ERROR, "失败");
     }
 
-    @DeleteMapping("/delAccount")
+    @GetMapping("/delAccount")
     @ApiOperation(value = "删除账户", notes = "删除账户")
     public Notice delAccount(@RequestParam("id") String id) {
         QueryWrapper<FlowingWater> queryWrapper = new QueryWrapper<FlowingWater>();
@@ -82,5 +89,15 @@ public class AccountController extends BaseApiService {
             return new Notice(HttpStatus.OK, "成功");
         }
         return new Notice(HttpStatus.INTERNAL_SERVER_ERROR, "失败");
+    }
+
+    @GetMapping("/getAccout")
+    @ApiOperation(value = "获取账户", notes = "获取账户")
+    public Notice getAccout(@RequestParam("id") String id) {
+        Account account = accountServiceImpl.getById(id);
+        account.setAccountConsumption(account.getAccountConsumption().divide(new BigDecimal(100)));
+        account.setAccountIncome(account.getAccountIncome().divide(new BigDecimal(100)));
+        account.setAccountBalance(account.getAccountBalance().divide(new BigDecimal(100)));
+        return new Notice(HttpStatus.OK, account, "成功");
     }
 }

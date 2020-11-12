@@ -63,7 +63,7 @@ public class SysRoleController {
         return new Notice(HttpStatus.INTERNAL_SERVER_ERROR, "失败");
     }
 
-    @DeleteMapping("/delRole")
+    @GetMapping("/delRole")
     @ApiOperation(value = "删除角色", notes = "删除角色")
     public Notice delRole(@RequestParam("id") String id) {
         QueryWrapper<SysRolePermission> queryWrapper = new QueryWrapper<SysRolePermission>();

@@ -51,7 +51,7 @@ public class SysPermissionController {
         return new Notice(HttpStatus.INTERNAL_SERVER_ERROR, "失败");
     }
 
-    @DeleteMapping("/delSysPermission")
+    @GetMapping("/delSysPermission")
     @ApiOperation(value = "删除接口权限", notes = "删除接口权限")
     public Notice delSysPermission(@RequestParam("id") String id) {
         if (sysPermissionService.removeById(id)) {

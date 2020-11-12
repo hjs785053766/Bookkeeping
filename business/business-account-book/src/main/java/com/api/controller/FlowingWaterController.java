@@ -94,7 +94,7 @@ public class FlowingWaterController extends BaseApiService {
         return new Notice(HttpStatus.INTERNAL_SERVER_ERROR, "失败");
     }
 
-    @DeleteMapping("/delFlowingWater")
+    @GetMapping("/delFlowingWater")
     @ApiOperation(value = "删除流水", notes = "删除流水")
     public Notice delFlowingWater(@RequestParam("id") String id) {
         FlowingWater flowingWaterSon = flowingWaterServiceImpl.getById(id);
