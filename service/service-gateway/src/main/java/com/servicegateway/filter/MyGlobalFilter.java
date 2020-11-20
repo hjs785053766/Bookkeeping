@@ -64,7 +64,7 @@ public class MyGlobalFilter implements GlobalFilter, Ordered {
         ServerHttpRequest oldRequest = exchange.getRequest();
         URI uri = oldRequest.getURI();
         ServerHttpRequest.Builder builder = oldRequest.mutate().uri(uri);
-        //判断是否是Knife4j请求
+        //判断是否是Knife4j请求或登录请求
         boolean urlJudge = url.contains("/v2/api-docs") || url.contains("/auth/UserInfo/getToken") || url.contains("/auth/UserInfo/verifyToken");
         if (urlJudge) {
             return chain.filter(exchange);
@@ -127,7 +127,10 @@ public class MyGlobalFilter implements GlobalFilter, Ordered {
         try {
             Map mapTypes = JSON.parseObject(userJson);
             Map urlMap = JSON.parseObject(mapTypes.get("url").toString());
-            if (urlMap.get(urlSon) != null) {
+            String urlFour = urlSon.substring(urlSon.indexOf("/") + 1, urlSon.lastIndexOf("/"));
+            String urlThree = "/" + urlFour + "/*";//模块所有接口
+            urlFour = "/" + urlFour.substring(0, urlFour.lastIndexOf("/")) + "/*";//服务所有接口
+            if (urlMap.get(urlSon) != null || urlMap.get(urlThree) != null || urlMap.get(urlFour) != null) {
                 Map userMap = JSON.parseObject(mapTypes.get("user").toString());
                 //重写请求头部
                 EncryptUtil des = EncryptUtil.getEncryptUtil("b068931cc450442b63f5b3d276ea4297", "utf-8");

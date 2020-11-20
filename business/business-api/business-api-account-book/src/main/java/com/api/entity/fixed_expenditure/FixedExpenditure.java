@@ -17,7 +17,7 @@ import java.util.Date;
  * </p>
  *
  * @author hjs
- * @since 2020-10-21
+ * @since 2020-11-16
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -33,20 +33,14 @@ public class FixedExpenditure implements Serializable {
     @ApiModelProperty(value = "名称")
     private String name;
 
-    @ApiModelProperty(value = "费用（元）")
+    @ApiModelProperty(value = "单价（分）")
     private BigDecimal cost;
 
     @ApiModelProperty(value = "计费时间")
     private Integer billingTime;
 
-    @ApiModelProperty(value = "单位")
-    private String company;
-
-    @ApiModelProperty(value = "共计（元）")
-    private BigDecimal total;
-
-    @ApiModelProperty(value = "实用（元）")
-    private BigDecimal practical;
+    @ApiModelProperty(value = "单位（1、年，2、月，3、日）")
+    private Integer company;
 
     @ApiModelProperty(value = "用户id")
     private String userId;

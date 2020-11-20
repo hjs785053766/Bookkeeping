@@ -9,15 +9,13 @@
         <result column="cost" property="cost" />
         <result column="billing_time" property="billingTime" />
         <result column="company" property="company" />
-        <result column="total" property="total" />
-        <result column="practical" property="practical" />
         <result column="user_id" property="userId" />
         <result column="creation_time" property="creationTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, cost, billing_time, company, total, practical, user_id, creation_time
+        id, name, cost, billing_time, company, user_id, creation_time
     </sql>
 
 </mapper>

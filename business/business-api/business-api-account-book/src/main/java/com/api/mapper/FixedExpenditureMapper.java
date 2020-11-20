@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author hjs
- * @since 2020-10-21
+ * @since 2020-11-16
  */
 public interface FixedExpenditureMapper extends BaseMapper<FixedExpenditure> {
 
