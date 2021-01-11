@@ -59,6 +59,18 @@ spring:
                 fallbackUri: forward:/fallback
             - StripPrefix=1
             - AddResponseHeader=X-Response-Default-Foo, Default-Bar
+        - id: business-test
+          uri: lb://BUSINESS-TEST
+          order: 0
+          predicates:
+            - Path=/test/**
+          filters:
+            - name: Hystrix
+              args:
+                name: fallback
+                fallbackUri: forward:/fallback
+            - StripPrefix=1
+            - AddResponseHeader=X-Response-Default-Foo, Default-Bar
 hystrix:
   command:
     default:
