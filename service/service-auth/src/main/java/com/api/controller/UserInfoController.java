@@ -4,11 +4,11 @@ import com.api.entity.user_info.UserInfo;
 import com.api.entity.user_info.UserInfoTwo;
 import com.api.manage.SysUserRoleServiceManage;
 import com.api.service.able.UserInfoService;
+import com.api.util.HttpStatus;
 import com.api.util.Notice;
 import com.api.utils.JWTUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
