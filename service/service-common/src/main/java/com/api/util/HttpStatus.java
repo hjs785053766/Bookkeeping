@@ -58,7 +58,7 @@ public enum HttpStatus {
     public static HttpStatus valueOf(int statusCode) {
         HttpStatus status = resolve(statusCode);
         if (status == null) {
-            throw new IllegalArgumentException("No matching constant for [" + statusCode + "]");
+            throw new IllegalArgumentException("没有匹配常量 [" + statusCode + "]");
         } else {
             return status;
         }
@@ -103,7 +103,7 @@ public enum HttpStatus {
         public static HttpStatus.Series valueOf(int statusCode) {
             HttpStatus.Series series = resolve(statusCode);
             if (series == null) {
-                throw new IllegalArgumentException("No matching constant for [" + statusCode + "]");
+                throw new IllegalArgumentException("没有匹配常量 [" + statusCode + "]");
             } else {
                 return series;
             }

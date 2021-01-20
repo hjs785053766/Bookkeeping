@@ -5,13 +5,13 @@ import com.api.entity.sys_permission.SysPermission;
 import com.api.entity.sys_role.SysRoleTwo;
 import com.api.entity.user_info.UserInfoTwo;
 import com.api.util.EncryptUtil;
+import com.api.util.HttpStatus;
 import com.api.util.Notice;
 import com.api.util.RedisUtil;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
