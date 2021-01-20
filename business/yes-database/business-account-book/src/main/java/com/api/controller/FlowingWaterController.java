@@ -56,9 +56,9 @@ public class FlowingWaterController extends BaseApiService {
         flowingWater.setAmount(flowingWater.getAmount().multiply(new BigDecimal(100)));
         if (flowingWaterServiceImpl.save(flowingWater)) {
             if (flowingWater.getOperationType() == 1) {//钱包扣款
-                accountServiceImpl.IncomeAndExpenditure(flowingWater.getDeductionAccountId(), flowingWater.getOperationType(), 1, flowingWater.getAmount());
+                accountServiceImpl.incomeAndExpenditure(flowingWater.getDeductionAccountId(), flowingWater.getOperationType(), 1, flowingWater.getAmount());
             } else if (flowingWater.getOperationType() == 2) {//钱包收款
-                accountServiceImpl.IncomeAndExpenditure(flowingWater.getCollectionAccountId(), flowingWater.getOperationType(), 1, flowingWater.getAmount());
+                accountServiceImpl.incomeAndExpenditure(flowingWater.getCollectionAccountId(), flowingWater.getOperationType(), 1, flowingWater.getAmount());
             } else {//钱包转账
                 accountServiceImpl.transferAccounts(flowingWater.getDeductionAccountId(), flowingWater.getCollectionAccountId(), 1, flowingWater.getAmount());
             }
@@ -75,11 +75,11 @@ public class FlowingWaterController extends BaseApiService {
         flowingWater.setAmount(flowingWater.getAmount().multiply(new BigDecimal(100)));
         FlowingWater flowingWaterSon = flowingWaterServiceImpl.getById(flowingWater.getId());
         if (flowingWaterSon.getOperationType() == 1) {
-            accountServiceImpl.IncomeAndExpenditure(flowingWaterSon.getDeductionAccountId(), flowingWaterSon.getOperationType(), 2, flowingWaterSon.getAmount());
-            accountServiceImpl.IncomeAndExpenditure(flowingWater.getDeductionAccountId(), flowingWater.getOperationType(), 1, flowingWater.getAmount());
+            accountServiceImpl.incomeAndExpenditure(flowingWaterSon.getDeductionAccountId(), flowingWaterSon.getOperationType(), 2, flowingWaterSon.getAmount());
+            accountServiceImpl.incomeAndExpenditure(flowingWater.getDeductionAccountId(), flowingWater.getOperationType(), 1, flowingWater.getAmount());
         } else if (flowingWaterSon.getOperationType() == 2) {
-            accountServiceImpl.IncomeAndExpenditure(flowingWaterSon.getCollectionAccountId(), flowingWaterSon.getOperationType(), 2, flowingWaterSon.getAmount());
-            accountServiceImpl.IncomeAndExpenditure(flowingWater.getCollectionAccountId(), flowingWater.getOperationType(), 1, flowingWater.getAmount());
+            accountServiceImpl.incomeAndExpenditure(flowingWaterSon.getCollectionAccountId(), flowingWaterSon.getOperationType(), 2, flowingWaterSon.getAmount());
+            accountServiceImpl.incomeAndExpenditure(flowingWater.getCollectionAccountId(), flowingWater.getOperationType(), 1, flowingWater.getAmount());
         } else if (flowingWaterSon.getOperationType() == 3) {
             accountServiceImpl.transferAccounts(flowingWater.getDeductionAccountId(), flowingWater.getCollectionAccountId(), 2, flowingWater.getAmount());
             accountServiceImpl.transferAccounts(flowingWater.getDeductionAccountId(), flowingWater.getCollectionAccountId(), 1, flowingWater.getAmount());
@@ -97,9 +97,9 @@ public class FlowingWaterController extends BaseApiService {
         FlowingWater flowingWaterSon = flowingWaterServiceImpl.getById(id);
         if (flowingWaterServiceImpl.removeById(id)) {
             if (flowingWaterSon.getOperationType() == 1) {
-                accountServiceImpl.IncomeAndExpenditure(flowingWaterSon.getDeductionAccountId(), flowingWaterSon.getOperationType(), 2, flowingWaterSon.getAmount());
+                accountServiceImpl.incomeAndExpenditure(flowingWaterSon.getDeductionAccountId(), flowingWaterSon.getOperationType(), 2, flowingWaterSon.getAmount());
             } else if (flowingWaterSon.getOperationType() == 2) {
-                accountServiceImpl.IncomeAndExpenditure(flowingWaterSon.getCollectionAccountId(), flowingWaterSon.getOperationType(), 2, flowingWaterSon.getAmount());
+                accountServiceImpl.incomeAndExpenditure(flowingWaterSon.getCollectionAccountId(), flowingWaterSon.getOperationType(), 2, flowingWaterSon.getAmount());
             } else if (flowingWaterSon.getOperationType() == 3) {
                 accountServiceImpl.transferAccounts(flowingWaterSon.getCollectionAccountId(), flowingWaterSon.getDeductionAccountId(), 2, flowingWaterSon.getAmount());
                 accountServiceImpl.transferAccounts(flowingWaterSon.getDeductionAccountId(), flowingWaterSon.getCollectionAccountId(), 1, flowingWaterSon.getAmount());

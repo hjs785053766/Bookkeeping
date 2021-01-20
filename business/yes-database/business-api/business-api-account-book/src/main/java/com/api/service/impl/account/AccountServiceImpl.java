@@ -28,7 +28,7 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
      * @param money     金钱（分）
      * @return
      */
-    public boolean IncomeAndExpenditure(String accountId, int typeTwo, int type, BigDecimal money) {
+    public boolean incomeAndExpenditure(String accountId, int typeTwo, int type, BigDecimal money) {
         Account accountSon = getById(accountId);
         Account account = new Account();
         account.setId(accountId);
