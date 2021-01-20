@@ -1,4 +1,4 @@
-package com.forezp.eurekaserver;
+package com.project.eurekaserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
